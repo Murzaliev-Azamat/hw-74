@@ -11,13 +11,11 @@ let allMessages: Message[] = [];
 messagesRouter.get('/', async (req, res) => {
   const run = async () => {
     const files = await fs.readdir(path);
-    console.log(files)
     files.forEach(file => {
       const loadMessage = async (path: string) => {
         allMessages = []
         const fileContents = await fs.readFile(path);
         const message = fileContents.toString();
-        console.log(message)
         const fileObject = JSON.parse(message) as Message
         allMessages.push(fileObject);
       }
@@ -46,7 +44,6 @@ messagesRouter.post('/', async (req, res) => {
     } catch (err) {
       console.error(err);
     }
-    console.log(fileName + today.toISOString() + '.txt')
   };
 
   await run().catch(console.error);
